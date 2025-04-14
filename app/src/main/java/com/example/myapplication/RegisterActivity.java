@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,11 +15,13 @@ import androidx.core.view.WindowInsetsCompat;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getName();
+    private static final String PREF_KEY = MainActivity.class.getPackage().toString();
 
     EditText userNameEditText;
     EditText userEmailEditText;
     EditText passwordEditText;
     EditText re_passwordEditText;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +44,15 @@ public class RegisterActivity extends AppCompatActivity {
         userNameEditText = findViewById(R.id.userNameEditText);
         userEmailEditText = findViewById(R.id.userEmailText);
         passwordEditText = findViewById(R.id.userPasswordText);
-        re_passwordEditText = findViewById(R.id.userPasswordTextUjra)
+        re_passwordEditText = findViewById(R.id.userPasswordTextUjra);
 
+
+        preferences = getSharedPreferences(PREF_KEY,MODE_PRIVATE);
+        String userName = preferences.getString("username","");
+        String password = preferences.getString("password","");
+
+        userNameEditText.setText(userName);
+        passwordEditText.setText(password);
     }
 
     public void register(View view) {
@@ -79,6 +89,12 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("username",userNameEditText.getText().toString());
+        editor.putString("email",userEmailEditText.getText().toString());
+        editor.putString("re-password",re_passwordEditText.getText().toString());
+        editor.putString("password",passwordEditText.getText().toString());
+        editor.apply();
     }
 
     @Override
