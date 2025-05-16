@@ -8,4 +8,74 @@
     <string name="email">E-mail cím</string>
     <string name="password_again">Jelszó újból</string>
     <string name="cancel">Mégse</string>
+    <string name="mobile_number">Telefonszám</string>
+    <string name="gender">Nem</string>
+    <string name="buyer">Vásárló</string>
+    <string name="seller">Eladó</string>
+    <string name="accountType">Felhasználó típus</string>
+    <string name="login_wia_google">Bejelentkezés Google fiókkal</string>
+    <string name="kosarba">Kosárba</string>
+    <string name="pelda">Pelda</string>
+    <string name="info_placeholder">Info placeholder</string>
+    <string name="logout">Kijelentkezés</string>
+    <string name="options">Beállítások</string>
+    <string name="nezet">Nézet</string>
+    <string name="kereses">Kereses</string>
+    <string name="guest_login">Bejelentkezés vendégként</string>
+    <string name="delete">Törlés</string>
+    <string-array name="genders">"
+        <item>Férfi</item>
+        <item>Nő</item>
+    </string-array>
+
+    <string-array name="real_estate_titles">
+        <item>Budapest, Andrássy út 45.</item>
+        <item>Debrecen, Nagyerdei körút 12.</item>
+        <item>Szeged, Kálvária sugárút 90</item>
+        <item>Pécs, Rókus utca 3.</item>
+        <item>Győr, Révai Miklós utca 15.</item>
+    </string-array>
+
+    <string-array name="shopping_item_desc">
+        <item>Tágas lakás a belváros szívében, erkélyes nappalival.</item>
+        <item>Modern új építésű lakás csendes környéken.</item>
+        <item>Felújított téglalakás egyetemközelben, ideális diákoknak.</item>
+        <item>Panorámás kilátás, napfényes szobák, saját garázzsal.</item>
+        <item>Új építésű lakóparkban 2 hálószobás lakás erkéllyel.</item>
+    </string-array>
+
+    <string-array name="shopping_item_rooms">
+        <item>3</item>
+        <item>2</item>
+        <item>4</item>
+        <item>1</item>
+        <item>5</item>
+
+    </string-array>
+
+    <array name="shopping_item_images">
+        <item>@drawable/a1</item>
+        <item>@drawable/a2</item>
+        <item>@drawable/a3</item>
+        <item>@drawable/a4</item>
+        <item>@drawable/a5</item>
+
+    </array>
+
+    <string-array name="phoneNums">
+        <item>3737373</item>
+        <item>3453543</item>
+        <item>564645687</item>
+        <item>4534678</item>
+        <item>208514563</item>
+
+    </string-array>
+
+    <string-array name="shopping_item_price">
+        <item>120000000</item>
+        <item>150 Dv</item>
+        <item>500 Dv</item>
+        <item>300 Dv</item>
+        <item>180 Dv</item>
+    </string-array>
 </resources>

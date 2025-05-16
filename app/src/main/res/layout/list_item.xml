@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true" />
+
+        <TextView
+            android:id="@+id/itemTitle"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemImage"
+            android:padding="8dp"
+            android:text="@string/pelda"
+            android:textColor="?android:textColorSecondary" />
+
+
+
+        <TextView
+            android:id="@+id/subTitle"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemTitle"
+            android:padding="8dp"
+            android:text="@string/info_placeholder" />
+
+        <TextView
+            android:id="@+id/rooms"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/subTitle"
+            android:layout_marginBottom="12dp"
+            android:padding="8dp"
+            android:textColor="@color/red"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/price"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rooms"
+            android:layout_marginBottom="12dp"
+            android:padding="8dp"
+            android:textColor="@color/red"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/phoneNumber"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/price"
+            android:layout_marginBottom="12dp"
+            android:padding="8dp"
+            android:textColor="@color/red"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_below="@id/phoneNumber"
+            android:text="@string/delete" />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

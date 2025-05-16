@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="register_margin_top">30dp</dimen>
+    <dimen name="default_margin_side">10dp</dimen>
+    <dimen name="register_margin_top_landscape">10dp</dimen>
+    <dimen name="margin">20dp</dimen>
 </resources>
