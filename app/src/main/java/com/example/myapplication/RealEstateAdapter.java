@@ -92,7 +92,8 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
     };
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTitleText;
+        private TextView mAddress;
+        private TextView mBaseArea;
         private TextView mInfoText;
         private TextView mPriceText;
         private ImageView mItemImage;
@@ -102,8 +103,9 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mTitleText = itemView.findViewById(R.id.itemTitle);
-            mInfoText = itemView.findViewById(R.id.subTitle);
+            mAddress = itemView.findViewById(R.id.itemAddress);
+            mBaseArea = itemView.findViewById(R.id.itemBaseArea);
+            mInfoText = itemView.findViewById(R.id.itemDescription);
             mPriceText = itemView.findViewById(R.id.price);
             mItemImage = itemView.findViewById(R.id.itemImage);
             mRoomsText = itemView.findViewById(R.id.rooms);
@@ -112,13 +114,15 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
         }
 
         public void bindTo(RealEstateItem currentItem) {
-            mTitleText.setText(currentItem.getBaseArea());
+            mAddress.setText(currentItem.getAddress());
+            mBaseArea.setText(currentItem.getBaseArea());
             mInfoText.setText(currentItem.getDescription());
-            mPriceText.setText(String.valueOf(currentItem.getPrice()));
-            mRoomsText.setText(String.valueOf(currentItem.getRooms()));
-            mPhoneNumber.setText(String.valueOf(currentItem.getPhoneNumber()));
+            mPriceText.setText(currentItem.getPrice());
+            mRoomsText.setText(currentItem.getRooms());
+            mPhoneNumber.setText(currentItem.getPhoneNumber());
 
             Glide.with(mContext).load(currentItem.getImageUrl()).into(mItemImage);
+            itemView.findViewById(R.id.delete).setOnClickListener(view -> ((RealEstateListActivity)mContext).deleteItem(currentItem));
         }
     }
 }

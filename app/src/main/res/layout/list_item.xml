@@ -15,35 +15,43 @@
             android:adjustViewBounds="true" />
 
         <TextView
-            android:id="@+id/itemTitle"
+            android:id="@+id/itemAddress"
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/itemImage"
             android:padding="8dp"
-            android:text="@string/pelda"
+            android:text="@string/address"
             android:textColor="?android:textColorSecondary" />
 
 
 
         <TextView
-            android:id="@+id/subTitle"
+            android:id="@+id/itemBaseArea"
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/itemTitle"
+            android:layout_below="@id/itemAddress"
             android:padding="8dp"
-            android:text="@string/info_placeholder" />
+            android:text="@string/sqr_meter" />
+
+        <TextView
+            android:id="@+id/itemDescription"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemBaseArea"
+            android:padding="8dp"
+            android:text="@string/desc" />
 
         <TextView
             android:id="@+id/rooms"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/subTitle"
+            android:layout_below="@id/itemDescription"
             android:layout_marginBottom="12dp"
             android:padding="8dp"
-            android:textColor="@color/red"
             android:layout_centerHorizontal="true"/>
 
         <TextView

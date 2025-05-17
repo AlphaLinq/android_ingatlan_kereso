@@ -1,20 +1,23 @@
 package com.example.myapplication;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.MenuItemCompat;
 import androidx.core.view.ViewCompat;
@@ -23,13 +26,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.ArrayList;
@@ -52,7 +54,11 @@ public class RealEstateListActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
 
+    private NotificationHandler mNotificationHandler;
 
+    private JobScheduler mJobScheduler;
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +81,8 @@ public class RealEstateListActivity extends AppCompatActivity {
 
 
         mRecyclerView = findViewById(R.id.recyclerView);
-
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, gridNumber));
+
         mItemList = new ArrayList<>();
         mAdapter = new RealEstateAdapter(this,mItemList);
 
@@ -84,10 +90,26 @@ public class RealEstateListActivity extends AppCompatActivity {
 
         mFireStore = FirebaseFirestore.getInstance();
         mItems = mFireStore.collection("Items");
-
-
         queryData();
-        initializeData();
+
+        mNotificationHandler = new NotificationHandler(this);
+        mJobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        setJobScheduler();
+
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void setJobScheduler() {
+        int networkType = JobInfo.NETWORK_TYPE_UNMETERED;
+        int hardDeadLine = 5000;
+
+        ComponentName componentName = new ComponentName(getPackageName(), NotificationJobService.class.getName());
+        JobInfo.Builder builder = new JobInfo.Builder(0, componentName);
+        builder.setRequiredNetworkType(networkType);
+        builder.setOverrideDeadline(hardDeadLine);
+        mJobScheduler.schedule(builder.build());
 
     }
 
@@ -95,9 +117,10 @@ public class RealEstateListActivity extends AppCompatActivity {
         mItemList.clear();
 
         //mItems.whereEqualTo()
-        mItems.orderBy("name").limit(5).get().addOnSuccessListener(queryDocumentSnapshots -> {
+        mItems.orderBy("address").limit(5).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                 RealEstateItem item = doc.toObject(RealEstateItem.class);
+                item.setId(doc.getId());
                 mItemList.add(item);
             }
 
@@ -107,28 +130,52 @@ public class RealEstateListActivity extends AppCompatActivity {
             }
             mAdapter.notifyDataSetChanged();
         });
+
+        /*mItems.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                RealEstateItem item = doc.toObject(RealEstateItem.class);
+                mItemList.add(item);
+            }
+
+            if (mItemList.isEmpty()) {
+                Log.d(LOG_TAG, "No items found in Firestore. Initializing data...");
+                initializeData();
+            }
+
+            mAdapter.notifyDataSetChanged();
+        });*/
     }
 
-    private void deleteItem(RealEstateItem item){
+    public void deleteItem(RealEstateItem item){
+        DocumentReference ref = mItems.document(item._getId());
+        ref.delete().addOnSuccessListener(unused -> {
+            mItemList.remove(item);
+            mAdapter.notifyDataSetChanged();
+        })
+        .addOnFailureListener(e -> Log.w(LOG_TAG, "Error deleting document", e));
 
+        mNotificationHandler.send(item.getPhoneNumber() + "sikeresen törölve");
+        queryData();
     }
 
     private void updateItem(RealEstateItem item){
-
+        //TODO?
     }
 
     private void initializeData() {
-        String[] itemList = getResources().getStringArray(R.array.real_estate_titles);
+        String[] itemAddress = getResources().getStringArray(R.array.real_estate_titles);
         String[] itemDescription = getResources().getStringArray(R.array.shopping_item_desc);
+        String[] itemBaseArea = getResources().getStringArray(R.array.baseArea);
         String[] itemPrice = getResources().getStringArray(R.array.shopping_item_price);
         String[] itemRooms = getResources().getStringArray(R.array.shopping_item_rooms);
         String[] itemPhone = getResources().getStringArray(R.array.phoneNums);
         TypedArray itemImageUrl = getResources().obtainTypedArray(R.array.shopping_item_images);
 
-        //mItemList.clear();
+        mItemList.clear();
 
-        for (int i = 0; i < itemList.length; i++) {
-            mItems.add(new RealEstateItem(itemList[i],
+        for (int i = 0; i < itemAddress.length; i++) {
+            mItems.add(new RealEstateItem(itemAddress[i],
+                    itemBaseArea[i],
                     itemDescription[i],
                     itemPrice[i],
                     itemRooms[i],

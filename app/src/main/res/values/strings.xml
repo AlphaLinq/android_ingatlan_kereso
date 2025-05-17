@@ -23,6 +23,9 @@
     <string name="kereses">Kereses</string>
     <string name="guest_login">Bejelentkezés vendégként</string>
     <string name="delete">Törlés</string>
+    <string name="address">Cím</string>
+    <string name="sqr_meter">Négyzetméter</string>
+    <string name="desc">Leiras</string>
     <string-array name="genders">"
         <item>Férfi</item>
         <item>Nő</item>
@@ -42,6 +45,15 @@
         <item>Felújított téglalakás egyetemközelben, ideális diákoknak.</item>
         <item>Panorámás kilátás, napfényes szobák, saját garázzsal.</item>
         <item>Új építésű lakóparkban 2 hálószobás lakás erkéllyel.</item>
+    </string-array>
+
+    <string-array name="baseArea">
+        <item>30</item>
+        <item>20</item>
+        <item>40</item>
+        <item>10</item>
+        <item>50</item>
+
     </string-array>
 
     <string-array name="shopping_item_rooms">

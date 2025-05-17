@@ -1,27 +1,33 @@
 package com.example.myapplication;
 
 public class RealEstateItem {
+
+    private String id;
+    private String address;
     private String baseArea;
     private String description;
     private String price;
     private String rooms;
-
-    private String phone;
+    private String phoneNumber;
     private int imageUrl;
 
-    public RealEstateItem(String title, String description, String price, String rooms,String phone, int imageUrl) {
-        this.baseArea = title;
+    public RealEstateItem(String title,String baseArea, String description, String price, String rooms,String phone, int imageUrl) {
+        this.address = title;
+        this.baseArea = baseArea;
         this.description = description;
         this.price = price;
         this.rooms = rooms;
-        this.phone = phone;
+        this.phoneNumber = phone;
         this.imageUrl = imageUrl;
+    }
+    public String getAddress() {
+        return address;
     }
 
     public RealEstateItem(){}
 
     public String getPhoneNumber() {
-        return phone;
+        return phoneNumber;
     }
 
     public String getBaseArea() {
@@ -58,6 +64,14 @@ public class RealEstateItem {
 
     public int getImageUrl() {
         return imageUrl;
+    }
+
+    public String _getId(){
+        return id;
+    }
+
+    public void setId(String id){
+        this.id = id;
     }
 
 }
