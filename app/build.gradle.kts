@@ -30,6 +30,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -50,6 +53,9 @@ dependencies {
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-firestore")
     implementation(libs.multidex)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+    implementation("com.google.firebase:firebase-storage")
 
 
     testImplementation(libs.junit)

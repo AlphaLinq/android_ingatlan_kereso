@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -62,13 +63,19 @@ public class RealEstateListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_real_estate_list);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar == null) {
+            Log.e(LOG_TAG, "Toolbar is null!");
+        } else {
+            setSupportActionBar(toolbar);
+        }
 
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -131,19 +138,6 @@ public class RealEstateListActivity extends AppCompatActivity {
             mAdapter.notifyDataSetChanged();
         });
 
-        /*mItems.get().addOnSuccessListener(queryDocumentSnapshots -> {
-            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                RealEstateItem item = doc.toObject(RealEstateItem.class);
-                mItemList.add(item);
-            }
-
-            if (mItemList.isEmpty()) {
-                Log.d(LOG_TAG, "No items found in Firestore. Initializing data...");
-                initializeData();
-            }
-
-            mAdapter.notifyDataSetChanged();
-        });*/
     }
 
     public void deleteItem(RealEstateItem item){
@@ -169,7 +163,8 @@ public class RealEstateListActivity extends AppCompatActivity {
         String[] itemPrice = getResources().getStringArray(R.array.shopping_item_price);
         String[] itemRooms = getResources().getStringArray(R.array.shopping_item_rooms);
         String[] itemPhone = getResources().getStringArray(R.array.phoneNums);
-        TypedArray itemImageUrl = getResources().obtainTypedArray(R.array.shopping_item_images);
+        String[] itemImageUrl = getResources().getStringArray(R.array.shopping_item_images); // String[]!
+
 
         mItemList.clear();
 
@@ -180,15 +175,15 @@ public class RealEstateListActivity extends AppCompatActivity {
                     itemPrice[i],
                     itemRooms[i],
                     itemPhone[i],
-                    itemImageUrl.getResourceId(i, 0)));
+                    itemImageUrl[i]
+            ));
         }
-
-        itemImageUrl.recycle();
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(LOG_TAG, "onCreateOptionsMenu");
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.estate_list_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.search_bar);
@@ -231,7 +226,10 @@ public class RealEstateListActivity extends AppCompatActivity {
                 changeSpanCount(item, R.drawable.baseline_format_align_justify_24, 2);
             }
             return true;
-        } else {
+        } else if (itemId == R.id.action_add){
+            startActivity(new Intent(this, AddEstateActivity.class));
+            return true;
+        }else {
             return super.onOptionsItemSelected(item);
         }
     }
