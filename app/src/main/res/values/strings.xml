@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Ingatlan Kereső</string>
     <string name="name">Név</string>
     <string name="password">Jelszó</string>
     <string name="login">Bejelentkezés</string>
@@ -133,4 +133,6 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="ingatlan_hozz_ad_sa">Ingatlan hozzáadása</string>
+    <string name="edit">Módósítás</string>
+    <string name="k_p_kiv_laszt_sa">Kép kiválasztása</string>
 </resources>

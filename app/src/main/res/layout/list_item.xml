@@ -77,12 +77,23 @@
             android:layout_centerHorizontal="true"/>
 
         <Button
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phoneNumber"
+            android:layout_margin="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/edit" />
+
+        <Button
             android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_below="@id/phoneNumber"
-            android:text="@string/delete" />
+            android:layout_toEndOf="@id/btn_update"
+            android:layout_alignBaseline="@id/btn_update"
+            android:layout_marginStart="8dp"
+        android:text="@string/delete" />
 
 
     </RelativeLayout>

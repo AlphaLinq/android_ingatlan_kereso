@@ -9,9 +9,9 @@ public class RealEstateItem {
     private String price;
     private String rooms;
     private String phoneNumber;
-    private int imageUrl;
+    private String imageUrl;
 
-    public RealEstateItem(String title,String baseArea, String description, String price, String rooms,String phone, int imageUrl) {
+    public RealEstateItem(String title,String baseArea, String description, String price, String rooms,String phone, String imageUrl) {
         this.address = title;
         this.baseArea = baseArea;
         this.description = description;
@@ -62,7 +62,7 @@ public class RealEstateItem {
         this.rooms = rooms;
     }
 
-    public int getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 

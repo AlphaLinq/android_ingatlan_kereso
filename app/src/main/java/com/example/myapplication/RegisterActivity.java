@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -100,7 +101,10 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         View radioButton = accountTypeGroup.findViewById(accountTypeId);
         int id = accountTypeGroup.indexOfChild(radioButton);
         String accountType =  ((RadioButton)accountTypeGroup.getChildAt(id)).getText().toString();
+        String gender = genderSpinner.getSelectedItem().toString();
 
+        EditText phoneEditText = findViewById(R.id.phoneEditText);
+        String phone = phoneEditText != null ? phoneEditText.getText().toString() : "";
         Log.i(LOG_TAG, "Regisztrált: " + username + ", e-mail: " + email);
 
 
@@ -108,8 +112,20 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    Log.d(LOG_TAG, "User created successfully");
-                    startSearchingRealEstates();
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    User user = new User(accountType, email, gender, "", password, phone, username);
+
+                    db.collection("Users")
+                            .add(user)
+                            .addOnSuccessListener(documentReference -> {
+                                // Beírjuk az id-t is
+                                documentReference.update("id", documentReference.getId());
+                                startSearchingRealEstates();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(RegisterActivity.this, "Hiba a Firestore feltöltéskor!", Toast.LENGTH_SHORT).show();
+                                Log.e(LOG_TAG, "Firestore feltöltés hiba", e);
+                            });
                 } else {
                     Log.d(LOG_TAG, "User was't created successfully:", task.getException());
                     Toast.makeText(RegisterActivity.this, "User was't created successfully:", Toast.LENGTH_LONG).show();
@@ -168,4 +184,5 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

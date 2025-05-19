@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:orientation="vertical" android:padding="16dp"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
 
     <EditText android:id="@+id/et_address" android:hint="Cím" android:layout_width="match_parent" android:layout_height="wrap_content"/>
     <EditText android:id="@+id/et_basearea" android:hint="Alapterület" android:inputType="number" android:layout_width="match_parent" android:layout_height="wrap_content"/>
     <EditText android:id="@+id/et_description" android:hint="Leírás" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-    <EditText android:id="@+id/et_phonenumber" android:hint="Telefonszám" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-    <EditText android:id="@+id/et_price" android:hint="Ár" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <EditText android:id="@+id/et_phonenumber" android:hint="Telefonszám" android:inputType="phone" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <EditText android:id="@+id/et_price" android:hint="Ár" android:layout_width="match_parent" android:inputType="number" android:layout_height="wrap_content"/>
     <EditText android:id="@+id/et_rooms" android:hint="Szobák száma" android:inputType="number" android:layout_width="match_parent" android:layout_height="wrap_content"/>
 
     <ImageView android:id="@+id/iv_image" android:layout_width="match_parent" android:layout_height="200dp" android:scaleType="centerCrop" android:src="@android:drawable/ic_menu_gallery" android:layout_marginTop="8dp"/>
@@ -19,3 +23,4 @@
 
     <Button android:text="Mentés" android:onClick="onSaveClicked" android:layout_width="match_parent" android:layout_height="wrap_content"/>
 </LinearLayout>
+    </ScrollView>

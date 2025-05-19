@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -121,8 +122,27 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
             mRoomsText.setText(currentItem.getRooms());
             mPhoneNumber.setText(currentItem.getPhoneNumber());
 
-            Glide.with(mContext).load(currentItem.getImageUrl()).into(mItemImage);
-            itemView.findViewById(R.id.delete).setOnClickListener(view -> ((RealEstateListActivity)mContext).deleteItem(currentItem));
+            // Kép betöltése csak egyszer, if-else szerkezettel
+            if (currentItem.getImageUrl() != null && !currentItem.getImageUrl().isEmpty()) {
+                Glide.with(mContext)
+                        .load(currentItem.getImageUrl())
+                        .placeholder(R.drawable.baseline_house_24)
+                        .into(mItemImage);
+            } else {
+                mItemImage.setImageResource(R.drawable.baseline_house_24);
+            }
+
+            // Törlés gomb
+            itemView.findViewById(R.id.delete).setOnClickListener(view ->
+                    ((RealEstateListActivity)mContext).deleteItem(currentItem)
+            );
+
+            // Módosítás gomb (btn_update)
+            itemView.findViewById(R.id.btn_update).setOnClickListener(view -> {
+                Intent intent = new Intent(mContext, UpdateEstateActivity.class);
+                intent.putExtra("estateId", currentItem._getId());
+                mContext.startActivity(intent);
+            });
         }
     }
 }

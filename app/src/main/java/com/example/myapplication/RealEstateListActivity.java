@@ -233,6 +233,11 @@ public class RealEstateListActivity extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        queryData();
+    }
 
     private void changeSpanCount(MenuItem item, int drawableId, int spanCount) {
         viewRow = !viewRow;

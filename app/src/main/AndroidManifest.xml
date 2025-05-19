@@ -25,7 +25,7 @@
         <activity
             android:name=".AddEstateActivity"
             android:exported="false"
-            android:theme="@style/Theme.MyApplication" />
+            />
 
         <service
             android:name=".NotificationJobService"
@@ -34,6 +34,7 @@
         <activity
             android:name=".RealEstateListActivity"
             android:exported="false" />
+        <activity android:name=".UpdateEstateActivity"/>
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
